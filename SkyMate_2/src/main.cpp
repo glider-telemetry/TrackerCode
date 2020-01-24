@@ -8,9 +8,8 @@
 #define DAY __DATE__
 #define TIME __TIME__
 
-// Include defines for boards here.
-//#include "Boards/SkyMate_2_0.h"
-#include "Boards/SkyMate_2_3.h"
+// Generic Board definition for code readability
+#include "Boards/generic_board.h"
 
 #define DEBUG
 #define DEBUG_STREAM Serial
@@ -28,7 +27,6 @@
 #include <SPI.h>
 #include <Preferences.h>
 #include <time.h>
-
 
 // Externally Required Libraries
 #include <TinyGPS++.h>

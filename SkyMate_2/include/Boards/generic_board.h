@@ -1,0 +1,53 @@
+#ifndef BOARD
+#define BOARD
+
+#define ON_STATE_STARTUP 0
+#define ON_STATE_CHARGING 1
+#define ON_STATE_RUNNING 2
+#define ON_STATE_RUNDOWN 3
+#define ON_STATE_UPDATE 4
+#define ON_STATE_SHUTDOWN 5
+
+#define ON_STATE_SARA_UPDATE 10
+
+#define ON_STATE_START 0
+#define ON_STATE_STAGE_1 1
+#define ON_STATE_STAGE_2 2
+
+#define SHUTDOWN_TIME 5000
+
+#define CHARGING_LOOP_INTERVAL 1000
+#define MAIN_LOOP_INTERVAL 5500
+#define SEALEVELPRESSURE_HPA (1013.25)
+
+// Debug Serial
+#define DEBUG_STREAM_BAUD 115200
+
+// Modem Serial
+#define MODEM_STREAM_BAUD 115200
+#define MODEM_STREAM_RX	16
+#define MODEM_STREAM_TX 17
+
+// GPS Serial
+#define GPS_STREAM_BAUD 9600
+#define GPS_STREAM_RX 18
+#define GPS_STREAM_TX 19
+
+// Display SPI
+#define SHARP_SCK  23
+#define SHARP_MOSI 22
+#define SHARP_MISO 12
+#define SHARP_SS   21
+#define SHARP_WIDTH	144
+#define SHARP_HEIGHT 168
+
+#define SKYMATE_SDA 26
+#define SKYMATE_SCL 25
+
+#define N_RESET 2
+#define N_PWR_ON 15
+#define V_INT 34
+#define ON_SW 35
+#define BATT_VOLTAGE 27
+
+#endif
