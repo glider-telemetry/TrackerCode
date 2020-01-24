@@ -1,7 +1,3 @@
-// 
-// 
-// 
-
 #include "SkyMate.h"
 #include <Sanderbuilt_SARA.h>
 
@@ -279,7 +275,7 @@ uint8_t SkyMate::mainLoop(unsigned long currentMillis) {
 			break;
 		case HTTP_MODE_POSITION_SET_URL:
 			if (sendMainCommand(readLoopStatus, currentMillis, SANDERBUILT_SARA_OK, HTTP_MODE_POSITION_DELETE_POST_FILE, 10000, NETWORK_IDLE)) {
-				myTracker->setURL(0, "t.sanderbuilt.com");
+				myTracker->setURL(0, SERVER);
 			}
 			break;
 		case HTTP_MODE_POSITION_DELETE_POST_FILE:
@@ -380,11 +376,11 @@ uint8_t SkyMate::mainLoop(unsigned long currentMillis) {
 				}
 			}
 			if (sendMainCommand(readLoopStatus, currentMillis, SANDERBUILT_SARA_OK, SOCKET_CREATE_SOCKET, 70000, SOCKET_DEFAULT_IP)) {
-				myTracker->requestIP("t.sanderbuilt.com");
+				myTracker->requestIP(SERVER);
 			}
 			break;
 		case SOCKET_DEFAULT_IP:
-			strcpy(ipAddress, "13.211.90.105");
+			strcpy(ipAddress, BACKUP_IP);
 			ipSet = true;
 			mainLoopID = SOCKET_CREATE_SOCKET;
 			break;
@@ -423,8 +419,7 @@ uint8_t SkyMate::mainLoop(unsigned long currentMillis) {
 			break;
 		case SOCKET_CONNECT_SOCKET:
 			if (sendMainCommand(readLoopStatus, currentMillis, SANDERBUILT_SARA_OK, SOCKET_WRITE_DATA_BYTES1, 120000, SOCKET_GET_ERROR)) {
-				myTracker->connectSocket(socket, ipAddress, 1234);
-				//myTracker->connectSocket(socket, "13.211.90.105", 1234);
+				myTracker->connectSocket(socket, ipAddress, PORT);
 			}
 			break;
 		case SOCKET_WRITE_DATA_BYTES1:

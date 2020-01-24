@@ -13,6 +13,31 @@
 #include <esp_wifi.h>
 #include <WiFi.h>
 
+#ifndef OTA_URL
+#error "Set OTA_URL"
+#define OTA_URL " "
+#endif
+
+#ifndef OTA_BIN
+#error "Set OTA_BIN"
+#define OTA_BIN "  "
+#endif
+
+#ifndef SERVER
+#error "Set SERVER url"
+#define SERVER " "
+#endif
+
+#ifndef BACKUP_IP
+#error "Set BACKUP_IP"
+#define BACKUP_IP " "
+#endif
+
+#ifndef PORT
+#error "Set Socket Port"
+#define PORT 1234
+#endif
+
 #define UPDATE_IDLE 0
 #define UPDATE_SHUTDOWN 1
 #define UPDATE_CONNECT_WIFI 2
@@ -591,9 +616,9 @@ protected:
 	char PSWD[30];
 
 	// S3 Bucket Config
-	const char host[25] = "tracking.sanderbuilt.com"; // Host => bucket-name.s3.region.amazonaws.com
+	const char host[25] = OTA_URL; // Host => bucket-name.s3.region.amazonaws.com
 	int port = 80; // Non https. For HTTPS 443. As of today, HTTPS doesn't work.
-	const char bin[31] = "/update/Skymate_2_Sara.ino.bin"; // bin file name with a slash in front.
+	const char bin[31] = OTA_BIN; // bin file name with a slash in front.
 
 	SkyMatePreferences _pref;
 	SkyMatePilot _pilot;
