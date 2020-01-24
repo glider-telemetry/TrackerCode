@@ -574,6 +574,8 @@ protected:
 	void sendMessage(int);
 	void clearPositionStatus(int8_t status); 
 	void writePositionStatus(int8_t status, int8_t newStatus = SEND_STATUS_NEW);
+	void readServerSocketResponse();
+	void readServerHTTPResponse();
 
 	double distanceBetween(double lat1, double long1, double lat2, double long2);
 
