@@ -50,6 +50,28 @@ void SkyMate::sendMessage(void) {
 
 void SkyMate::sendMessage(int maximum_send) {
 	// send preLine here
+#ifdef JACQUES_TEST
+	for (int i = 0; i < maximum_send; i++) {
+		SkyMatePosition tempPosition;
+		char tempString[300];
+
+		modemStream->print("[");
+		DEBUG_PRINT("[");
+
+		if (getUnwrittenPos(&tempPosition, SEND_STATUS_PENDING)) {
+			if (i > 0) {
+				modemStream->print(","); // Add the "," for between points.
+				DEBUG_PRINT(",");
+			}
+			createJPosition(tempPosition, tempString);
+			modemStream->print(tempString);
+			DEBUG_PRINT(tempString);
+		}
+	}
+	
+	modemStream->print("]\n");
+	DEBUG_PRINT("]\n");
+#else
 	modemStream->print(preLine);
 	DEBUG_PRINT(preLine);
 
@@ -69,7 +91,10 @@ void SkyMate::sendMessage(int maximum_send) {
 	
 	modemStream->print("}}\n");
 	DEBUG_PRINT("}}\n");
+#endif
 }
+
+
 
 void SkyMate::createPostLine(SkyMatePosition position, char *postLine) {
 	/*
@@ -84,6 +109,42 @@ void SkyMate::createPostLine(SkyMatePosition position, char *postLine) {
 	}
 	*/
 	sprintf(postLine, "\"%i\":{\"lat\":%0.6f,\"lon\":%0.6f,\"s\":%0.1f,\"h\":%0.0f,\"a\":%0.1f}", position.time, position.lat, position.lon, position.speed.mps(), position.heading, position.alt);
+}
+
+void SkyMate::createJPosition(SkyMatePosition position, char *postLine) {
+	/*{"trackerID": "10-000000-000000-01",
+	"fixTime": {{current_timestamp}},
+	"lat": -34.47332,
+	"lon": 147.50217,
+	"gsp": 91.73,
+	"hdt": 302.0,
+	"gAlt": 993.0,
+	"RSSI": "13,45,67,43",
+	"volt": 4.3,
+	"temp": 35.2,
+	"devData": "Testing",
+	"tower": "NS23-13c45",
+	"priv": 0,
+	"siu": 9,
+	"mop": 29,
+	"enl": 123,
+	"pAlt": 969.0,
+	"var": -1.22,
+	"vVel": -1.34,
+	"vat": -1.11,
+	"acz": 1.1,
+	"press": 1013.55,
+	"wdi": 224,
+	"wsp": 7.1,
+	"navStat": "G3",
+	"fxa": 5.6,
+	"oat": 31.23,
+	"ias": 98.45}*/
+
+	char battBuff[16];
+	dtostrf(_voltage, 1, 2, battBuff);
+
+	sprintf(postLine, "{\"trackerID\":\"%s\",\"fixTime\":%i,\"lat\":%0.6f,\"lon\":%0.6f,\"gsp\":%0.1f,\"hdt\":%0.0f,\"gAlt\":%0.1f,\"rssi\":\"%s,%s\",\"volt\":%s,\"temp\":%i}", imei, position.time, position.lat, position.lon, position.speed.mps(), position.heading, position.alt, rsrpCH, rsrqCH, battBuff, dieTemperature);
 }
 
 bool SkyMate::getUnwrittenPos(SkyMatePosition *position, uint8_t status) {
