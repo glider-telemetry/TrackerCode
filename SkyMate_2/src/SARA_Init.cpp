@@ -396,9 +396,18 @@ long SkyMate::initLoop(unsigned long currentMillis) {
 		}
 		break; 
 	case INIT_SET_UCGED:
-		if (sendInitCommand(readLoopStatus, currentMillis, INIT_REQUEST_PHONE_NUMBER)) {
+		if (sendInitCommand(readLoopStatus, currentMillis, INIT_SET_APN)) {
 			myTracker->setUCGED(5);
 		}
+		break;
+	case INIT_SET_APN:
+		#ifdef APN
+		if (sendInitCommand(readLoopStatus, currentMillis, INIT_REQUEST_PHONE_NUMBER)) {
+			myTracker->setAPN(APN);
+		}
+		#else
+		initLoopID = INIT_REQUEST_PHONE_NUMBER;
+		#endif
 		break;
 	case INIT_REQUEST_PHONE_NUMBER:
 		if (readLoopStatus == SANDERBUILT_SARA_REPLY_STRING) {

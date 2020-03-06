@@ -82,11 +82,12 @@
 #define INIT_SET_NETWORK 11
 #define INIT_SET_CREG 12
 #define INIT_SET_UCGED 13
-#define INIT_REQUEST_PHONE_NUMBER 14
-#define INIT_REQUEST_FIRMWARE_VERSION 15
-#define INIT_REQUEST_ATI 16
-#define INIT_CHECK_FREQUENCY 17
-#define INIT_GPS_SEND 18
+#define INIT_SET_APN 14
+#define INIT_REQUEST_PHONE_NUMBER 15
+#define INIT_REQUEST_FIRMWARE_VERSION 16
+#define INIT_REQUEST_ATI 17
+#define INIT_CHECK_FREQUENCY 18
+#define INIT_GPS_SEND 19
 
 #define INIT_CHECK_PROFILE 20
 #define INIT_DISABLE_PROFILE 21
@@ -655,6 +656,7 @@ private:
 
 	void createTrackerIDURL();
 	void createPostLine(SkyMatePosition position, char *postLine);
+	void createJPosition(SkyMatePosition position, char *postLine);
 
 	boolean checkString(char* toreply);
 	boolean parseString(char* toreply, double* v, char divider, uint8_t index);

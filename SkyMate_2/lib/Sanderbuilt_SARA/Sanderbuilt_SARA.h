@@ -86,6 +86,7 @@ public:
 	void requestCGDCONT(void);
 	void setMNOProfile(uint8_t mode);
 	void requestMNOProfile(void); 
+	void setAPN(char *url);
 	void disableModem(void);
 	void silentReset(void);
 	void requestGPRSStatus(void);

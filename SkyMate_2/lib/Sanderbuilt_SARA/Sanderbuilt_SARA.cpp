@@ -266,6 +266,11 @@ void Sanderbuilt_SARA::requestMNOProfile(void) {
 	mySerial->println(F("AT+UMNOPROF?"));
 }
 
+void Sanderbuilt_SARA::setAPN(char *url) {
+	DEBUG_PRINT(millis()); DEBUG_PRINT(F("\t---> ")); DEBUG_PRINT(F("AT+CGDCONT=1,\"IP\",\"")); DEBUG_PRINT(url); DEBUG_PRINTLN(F("\""));
+	mySerial->print(F("AT+CGDCONT=1,\"IP\",\"")); mySerial->print(url); mySerial->println(F("\""));
+}
+
 void Sanderbuilt_SARA::disableModem(void) {
 	DEBUG_PRINT(millis()); DEBUG_PRINT(F("\t---> ")); DEBUG_PRINTLN(F("AT+CFUN=0"));
 	mySerial->println(F("AT+CFUN=0"));
